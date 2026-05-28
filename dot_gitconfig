@@ -1,0 +1,15 @@
+# This is Git's per-user configuration file.
+[user]
+	name = NithinVS2k4
+	email = nithinvshenoy@gmail.com
+# Please adapt and uncomment the following lines:
+#	name = Nithin
+#	email = nithin@Nithins-MacBook-Air.local
+[credential]
+	helper = store
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[http]
+	postBuffer = 524288000

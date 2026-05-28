@@ -1,0 +1,171 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+#
+#
+#
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# export PATH="/opt/anaconda3/bin:$PATH"
+
+# Zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+if [[ ! -d "$ZINIT_HOME" ]]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Powerlevel10k
+zinit ice depth=1
+zinit light romkatv/powerlevel10k
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+# OMZ snippets
+zinit snippet OMZL::git.zsh
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::archlinux
+zinit snippet OMZP::aws
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::command-not-found
+
+# Completions
+autoload -Uz compinit
+compinit
+
+zinit cdreplay -q
+
+# Keybindings
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+
+HISTDUP=erase
+
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+export LSCOLORS='ExFxCxDxBxegedabagacad'
+
+# Editor
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+# Aliases
+alias ls='ls --color'
+alias vim='nvim'
+alias n='nvim .'
+alias c='clear'
+
+unalias view 2>/dev/null
+alias view="viu -y 1"
+
+# Ghostty theme switcher
+gtheme() {
+  local theme="$*"
+  local cfg="$HOME/.config/ghostty/config.ghostty"
+  local escaped_theme
+
+  [[ -n $theme ]] || {
+    print -u2 "usage: gtheme <theme name>"
+    return 1
+  }
+
+  escaped_theme=${theme//\\/\\\\}
+  escaped_theme=${escaped_theme//&/\\&}
+  escaped_theme=${escaped_theme//\//\\/}
+
+  perl -0pi -e "s/^\\s*theme\\s*=.*\$/theme = ${escaped_theme}/m" "$cfg"
+
+  print -u2 "Updated Ghostty theme to: $theme"
+}
+
+_gtheme() {
+  local user_theme_dir="$HOME/.config/ghostty/themes"
+  local system_theme_dir="/Applications/Ghostty.app/Contents/Resources/ghostty/themes"
+
+  themes=(
+    "$user_theme_dir"/*(N:t)
+    "$system_theme_dir"/*(N:t)
+  )
+
+  # Remove duplicates
+  themes=(${(u)themes})
+  compadd -M 'm:{a-zA-Z}={A-Za-z}' -- $themes
+}
+
+compdef _gtheme gtheme
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+
+# Conda
+# Lazy-load Conda
+export PATH="/opt/anaconda3/bin:$PATH"
+
+__conda_lazy_init() {
+  unset -f conda
+  eval "$(/opt/anaconda3/bin/conda shell.zsh hook)"
+  conda "$@"
+}
+
+conda() {
+  __conda_lazy_init "$@"
+}
+# # >>> conda initialize >>>
+# # !! Contents within this block are managed by 'conda init' !!
+#
+# __conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#
+# if [ $? -eq 0 ]; then
+#   eval "$__conda_setup"
+# else
+#   if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+#     . "/opt/anaconda3/etc/profile.d/conda.sh"
+#   else
+#     export PATH="/opt/anaconda3/bin:$PATH"
+#   fi
+# fi
+#
+# unset __conda_setup
+#
+# <<< conda initialize <<<
+#
+pokefetch
+export PATH="$HOME/.local/bin:$PATH"

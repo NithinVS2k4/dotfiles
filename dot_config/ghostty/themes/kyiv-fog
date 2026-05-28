@@ -1,0 +1,26 @@
+background = #0c1009
+foreground = #b8c0b0
+cursor-color = #b89830
+selection-foreground = #0c1009
+selection-background = #b89830
+
+background-image = ~/Pictures/myimages/kyiv_fog_bg.jpg
+background-image-opacity = 0.6
+background-image-fit = cover
+
+palette = 0=#2e3428
+palette = 1=#a04838
+palette = 2=#587048
+palette = 3=#a88828
+palette = 4=#3a5870
+palette = 5=#685848
+palette = 6=#3a6858
+palette = 7=#a8b0a0
+palette = 8=#4e5848
+palette = 9=#c86858
+palette = 10=#789068
+palette = 11=#c8a848
+palette = 12=#5a7898
+palette = 13=#887068
+palette = 14=#5a8878
+palette = 15=#c8d0c0

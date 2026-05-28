@@ -1,0 +1,7 @@
+#!/bin/bash
+
+POKE=$(find "$HOME/Pictures/pokemon_sprites" -maxdepth 1 -name "*.png" | shuf -n 1)
+
+export FF_POKEMON="$POKE"
+
+fastfetch --config ~/.config/fastfetch/pokeconfig.jsonc

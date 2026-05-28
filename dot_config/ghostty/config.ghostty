@@ -1,0 +1,16 @@
+theme = Under The Sea
+font-size = 14
+
+mouse-hide-while-typing = true
+window-decoration = true
+macos-titlebar-style = hidden
+macos-option-as-alt = true
+
+mouse-scroll-multiplier = 2
+
+split-divider-color = black
+unfocused-split-opacity = 1
+
+font-family = JetBrainsMonoNL Nerd Font Mono
+
+custom-shader = ~/.config/ghostty/border.glsl

@@ -1,0 +1,4 @@
+name: fun1
+channels:
+  - conda-forge
+  - defaults
