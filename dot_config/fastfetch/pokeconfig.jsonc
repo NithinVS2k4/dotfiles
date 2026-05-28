@@ -123,7 +123,7 @@
         "type": "command",
         "shell": "/bin/bash",
         "text": "python3 -c 'import os; n=os.path.basename(os.environ[\"FF_POKEMON\"]).replace(\".png\", \"\"); print(\"\\033[1;91m\" + \" \".join(w.capitalize() for w in n.split(\"-\")) + \"\\033[0m\")'",
-        "key": "╰─󰨉",
+        "key": "╰─󰐝",
         "keyColor": "blue",
         "format": "{result}"
     }
