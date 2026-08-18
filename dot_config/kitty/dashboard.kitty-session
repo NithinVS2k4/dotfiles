@@ -1,0 +1,9 @@
+# Kitty sidebar dashboard
+# Uses Kitty's native splits layout.
+# The dashboard is created as the second window and takes 18% of the width.
+
+new_tab dashboard
+layout splits
+launch --title shell zsh
+launch --location=vsplit --bias=18 --title dashboard python3 ~/.config/kitty/kitty-dashboard.py
+focus_matching_window title:shell

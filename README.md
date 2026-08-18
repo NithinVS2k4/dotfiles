@@ -172,6 +172,12 @@ conda activate rl
 
 # 9. Neovim Setup
 
+Install pynvim 
+
+```bash
+pip install pynvim
+```
+
 Open Neovim:
 
 ```bash
@@ -195,14 +201,14 @@ Install Mason tools if required.
 Set Git identity:
 
 ```bash
-git config --global user.name "YOUR_NAME"
-git config --global user.email "YOUR_EMAIL"
+git config --global user.name "NithinVS2k4"
+git config --global user.email "nithinvshenoy@gmail.com"
 ```
 
 Generate SSH key:
 
 ```bash
-ssh-keygen -t ed25519 -C "YOUR_EMAIL"
+ssh-keygen -t ed25519 -C "nithinvshenoy@gmail.com"
 ```
 
 Add SSH key to GitHub.
@@ -213,27 +219,36 @@ Add SSH key to GitHub.
 
 ## pokefetch
 
-Custom fastfetch wrapper.
+Run the following command:
+```bash
+cd ~/Pictures && python3 get_sprites.py --cool100
+``` 
 
-Expected location:
+Then ensure pokefetch symlink is in `~/.local/bin/`.
+
+If not, check for `~/.config/fastfetch/pokefetch` and run:
 
 ```bash
-~/.config/fastfetch/pokefetch
+ln -s ~/.config/fastfetch/pokefetch ~/.local/bin/pokefetch
 ```
 
-Usage:
+Once that is done, run:
 
 ```bash
-pokefetch
+chmod +x ~/.local/bin/pokefetch
 ```
 
-Ensure executable permissions:
+Also ensure `~/.local/bin` is in PATH by running `echo $PATH`. If not, run:
 
 ```bash
-chmod +x ~/.config/fastfetch/pokefetch
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-Ensure the script directory is in PATH.
+Then run the chmod command again.
+
+
+## texview
+
 
 ---
 
